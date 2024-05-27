@@ -43,3 +43,6 @@ coverage/
 .npm/
 .node_repl_history
 .eslintcache
+
+# Explicitly include app.py if it was previously excluded by a wildcard rule
+!app.py

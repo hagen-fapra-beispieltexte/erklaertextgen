@@ -48,8 +48,9 @@ export default {
 }
 .title {
   font-size: 16pt;
-  text-align: left;
+  text-align: center;
   margin-bottom: 20px;
+  color: #303f9f;
 }
 .output-container, .loading-container {
   border: 1px solid #ccc;
