@@ -10,17 +10,18 @@ model_name = "gpt2"  # You can use "gpt2-medium", "gpt2-large", etc. for larger 
 model = GPT2LMHeadModel.from_pretrained(model_name)
 tokenizer = GPT2Tokenizer.from_pretrained(model_name)
 
-@app.route('/generate_text', methods=['POST'])
+
+@app.route("/generate_text", methods=["POST"])
 def generate_text():
     data = request.json
-    length = data.get('length')
-    text_type = data.get('text_type')
-    prompt = data.get('prompt')
+    length = data.get("length")
+    text_type = data.get("text_type")
+    prompt = data.get("prompt")
 
     # Define prompt text based on user input
-    if text_type == 'Geschichte':
+    if text_type == "Geschichte":
         prompt_text = f"This is a story about {prompt}:"
-    elif text_type == 'Erklärtext':
+    elif text_type == "Erklärtext":
         prompt_text = f"An easy explanation of {prompt} is this:"
     else:
         prompt_text = prompt
@@ -29,14 +30,19 @@ def generate_text():
     max_length = 50 if length == 1 else 100 if length == 2 else 200
 
     # Encode the prompt text and generate the text
-    inputs = tokenizer.encode(prompt_text, return_tensors='pt')
-    outputs = model.generate(inputs, max_length=max_length, num_return_sequences=1, no_repeat_ngram_size=2, early_stopping=True)
+    inputs = tokenizer.encode(prompt_text, return_tensors="pt")
+    outputs = model.generate(
+        inputs,
+        max_length=max_length,
+        num_return_sequences=1,
+        no_repeat_ngram_size=2,
+        early_stopping=True,
+    )
     generated_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
 
-    response = {
-        'generated_text': generated_text
-    }
+    response = {"generated_text": generated_text}
     return jsonify(response)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     app.run(debug=True)
