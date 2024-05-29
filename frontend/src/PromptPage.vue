@@ -227,8 +227,8 @@ export default {
 .slider-buttons button {
   background-color: #81d4fa;
   border: none;
-  border-radius: 10px;
-  padding: 10px;
+  border-radius: 5px;
+  padding: 5px;
   cursor: pointer;
   flex: 1;
   margin: 0 5px;
@@ -292,8 +292,7 @@ button.selected {
 }
 
 .full-width-button {
-  width: calc(100% - 40px);
-  margin: 0 20px;
+  width: calc(100% - 10px);
 }
 
 .error-message {

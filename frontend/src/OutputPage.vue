@@ -61,7 +61,7 @@ export default {
   flex: 1; /* Flex-Wachstum, damit die Container den verfügbaren Platz nutzen */
   display: flex;
   flex-direction: column;
-  color: #4fc3f7; /* Text über der Ausgabe */
+  color: #29b6f6; /* Text über der Ausgabe */
   justify-content: center; /* Zentriert den Inhalt vertikal */
   align-items: center; /* Zentriert den Inhalt horizontal */
 }
