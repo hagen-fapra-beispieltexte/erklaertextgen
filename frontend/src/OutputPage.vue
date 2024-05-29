@@ -28,6 +28,7 @@ export default {
 <style>
 .outer-container {
   display: flex;
+  color: #303f9f;
   justify-content: center; /* Zentriert den Container horizontal */
   align-items: center; /* Zentriert den Container vertikal */
   height: 100vh; /* Macht den outer-container so hoch wie das Viewport */
@@ -60,19 +61,22 @@ export default {
   flex: 1; /* Flex-Wachstum, damit die Container den verfügbaren Platz nutzen */
   display: flex;
   flex-direction: column;
+  color: #4fc3f7; /* Text über der Ausgabe */
   justify-content: center; /* Zentriert den Inhalt vertikal */
   align-items: center; /* Zentriert den Inhalt horizontal */
 }
 .output-text {
   margin: 20px 0;
-  background-color: #81d4fa;
+  background-color: #81d4fa; /* Hintergrund der Ausgabe #303f9f */
   padding: 20px;
+  color: #000000; /* Text der Ausgabe (Schrift) #ffffff */
   border-radius: 10px;
   width: 100%; /* Text nimmt die gesamte Breite des Containers ein */
   text-align: center; /* Text wird zentriert angezeigt */
 }
 .back-button {
-  background-color: #81d4fa;
+  color: #ffffff; /* Text des Buttons (Schrift) */
+  background-color: #0288d1; /* Hintergrundfarbe des Buttons */
   border: none;
   border-radius: 10px;
   padding: 10px 20px;

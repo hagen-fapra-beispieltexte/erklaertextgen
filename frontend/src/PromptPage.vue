@@ -34,15 +34,13 @@
             <div class="label">{{ textType === 'Geschichte' ? 'Thema der Geschichte?' : 'Was soll erklärt werden?' }}</div>
           </div>
           <div class="input-cell">
-            <input type="text" v-model="prompt" @keyup.enter="submitPrompt" placeholder="Beschreibe deinen Textwunsch" class="input-field" />
+            <input type="text" v-model="prompt" @keyup.enter="submitPrompt" placeholder="Gib hier ein Wort ein..." class="input-field" />
           </div>
         </div>
         <div class="form-row">
-          <div class="label-cell">
-            <div class="label">Drücke auf den Pfeil, um deine Eingabe abzusenden.</div>
-          </div>
+          <div class="label-cell"></div>
           <div class="input-cell">
-            <button @click="submitPrompt" class="submit-button">→</button>
+            <button @click="submitPrompt" class="submit-button full-width-button">Drücke hier, um die Eingabe abzusenden!</button>
           </div>
         </div>
       </div>
@@ -165,6 +163,8 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 5px;
+  padding: 5px;
 }
 
 .label {
@@ -184,7 +184,7 @@ export default {
 }
 
 .slider {
-  width: 100%;
+  width: 98%;
   margin-bottom: 10px;
   -webkit-appearance: none;
   height: 10px;
@@ -274,7 +274,7 @@ button.selected {
 }
 
 .input-field {
-  width: 100%;
+  width: 98%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 10px;
@@ -287,11 +287,25 @@ button.selected {
   border-radius: 10px;
   padding: 10px 20px;
   cursor: pointer;
+  width: 100%;
+  text-align: center;
+}
+
+.full-width-button {
+  width: calc(100% - 40px);
+  margin: 0 20px;
 }
 
 .error-message {
   color: red;
   margin-top: 10px;
+}
+
+.centered-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 /* Slider color changes based on length value */
