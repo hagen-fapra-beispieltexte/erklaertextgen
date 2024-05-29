@@ -11,7 +11,11 @@ spacy = "^3.7.4"
 nltk = "^3.8.1"
 wn = "^0.9.5"
 detoxify = "^0.5.2"
+flask = "^3.0.3"
 
+[tool.poetry.scripts]
+server = "erklartextgen.cli:run_server"
+eval = "erklartextgen.cli:run_eval"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.4.4"
