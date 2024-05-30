@@ -1,4 +1,4 @@
-def count_syllables(word):
+def _count_syllables(word):
     count = 0
     vowels = "aeiouy"
     word = word.lower()
@@ -17,10 +17,10 @@ def count_syllables(word):
 
 
 # Flesch Reading Ease Score
-def score_flesch_reading_ease(doc):
+def compute_flesch_reading_ease(doc):
     words = [token.text for token in doc if token.is_alpha]
     sentences = list(doc.sents)
-    syllables = sum(count_syllables(word) for word in words)
+    syllables = sum(_count_syllables(word) for word in words)
 
     num_sentences = max(len(sentences), 1)
     num_words = len(words)
@@ -35,10 +35,10 @@ def score_flesch_reading_ease(doc):
 
 
 # Flesch-Kincaid readability formula
-def score_flesch_kincaid_level(doc):
+def compute_flesch_kincaid_level(doc):
     words = [token.text for token in doc if token.is_alpha]
     sentences = list(doc.sents)
-    syllables = sum(count_syllables(word) for word in words)
+    syllables = sum(_count_syllables(word) for word in words)
 
     num_sentences = max(len(sentences), 1)
     num_words = len(words)
@@ -46,3 +46,61 @@ def score_flesch_kincaid_level(doc):
 
     score = 0.4 * (num_words / num_sentences) + 12 * (num_syllables / num_words) - 15
     return score
+
+
+# the Smog Index - readability metric
+def compute_smog_index(doc):
+    sentences = list(doc.sents)
+    words = [word.text for word in doc if word.is_alpha]
+
+    sentence_count = max(len(sentences), 1)
+    polysyllable_count = sum(1 for word in words if _count_syllables(word) > 2)
+
+    smog_score = 1.043 * (30 * polysyllable_count / sentence_count) ** 0.5 + 3.1291
+    return smog_score
+
+
+# the Gunning FOG Index - readability metric
+def compute_gunning_fog_index(doc):
+    sentences = list(doc.sents)
+    words = [word.text for word in doc if word.is_alpha]
+
+    sentence_count = max(len(sentences), 1)
+    word_count = len(words)
+    complex_word_count = sum(1 for word in words if _count_syllables(word) >= 3)
+
+    gunning_fog_index = 0.4 * (
+        (word_count / sentence_count) + (100 * (complex_word_count / word_count))
+    )
+
+    return gunning_fog_index
+
+
+# the automated readability index (ARI)
+def compute_ari(doc):
+    sentences = list(doc.sents)
+    words = [word.text for word in doc if word.is_alpha]
+
+    sentence_count = max(len(sentences), 1)
+    word_count = len(words)
+    char_count = sum(len(word) for word in words)
+
+    ari_score = (
+        4.71 * (char_count / word_count) + 0.5 * (word_count / sentence_count) - 21.43
+    )
+    return round(ari_score)
+
+
+# the coleman-liau index
+def compute_coleman_liau(doc):
+    sentences = list(doc.sents)
+    words = [word.text for word in doc if word.is_alpha]
+
+    sentence_count = max(len(sentences), 1)
+    word_count = len(words)
+    char_count = sum(len(word) for word in words)
+
+    lr = (char_count / word_count) * 100
+    sr = (sentence_count / word_count) * 100
+    coleman_liau_score = 0.0588 * lr - 0.296 * sr - 15.8
+    return coleman_liau_score

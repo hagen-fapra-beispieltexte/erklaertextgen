@@ -1,8 +1,6 @@
 import sys
 
 from . import evaluation
-from . import server
-
 
 def run_eval():
     print(evaluation.evaluate(sys.argv[1]))
