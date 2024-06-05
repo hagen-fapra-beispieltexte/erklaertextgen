@@ -72,7 +72,7 @@ export default {
         this.errorMessage = '';
         this.$emit('submit', { length: this.length, textType: this.textType, prompt: this.prompt });
       } else {
-        this.errorMessage = 'Bitte füllen Sie alle Felder aus.';
+        this.errorMessage = 'Bitte wähle die Länge und Art des Textes und schreibe etwas in das Feld!';
       }
     },
     updateButtonsAndSlider() {
