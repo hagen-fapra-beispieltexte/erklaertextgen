@@ -13,10 +13,13 @@ wn = "^0.9.5"
 detoxify = "^0.5.2"
 flask = "^3.0.3"
 ollama = "^0.2.1"
+toml = "^0.10.2"
+sentence-transformers = "^3.0.1"
 
 [tool.poetry.scripts]
 server = "erklartextgen.cli:run_server"
 eval = "erklartextgen.cli:run_eval"
+generate = "erklartextgen.cli:run_generate"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.4.4"

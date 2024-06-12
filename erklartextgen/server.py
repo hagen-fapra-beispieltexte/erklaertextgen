@@ -1,6 +1,10 @@
 from flask import Flask, request, jsonify
+from .config import read_config
+from .prompting import *
+from .backend import load_backend
 
 app = Flask(__name__)
+config = read_config()
 
 
 @app.route("/generate_text", methods=["POST"])
@@ -8,18 +12,22 @@ def generate_text():
     data = request.json
     length = data.get("length")
     text_type = data.get("text_type")
-    prompt = data.get("prompt")
+    topic = data.get("prompt")
 
-    # Define prompt text based on user input
     if text_type == "Geschichte":
-        prompt_text = f"This is a story about {prompt}:"
+        text_type = "story"
     elif text_type == "Erklärtext":
-        prompt_text = f"An easy explanation of {prompt} is this:"
-    else:
-        prompt_text = prompt
+        text_type = "explanation"
 
-    # Determine the maximum length based on user input
-    max_length = 50 if length == 1 else 100 if length == 2 else 200
+    text_length_str = "short"
+    if length == 1:
+        text_length = "medium"
+    elif length == 2:
+        text_length = "long"
 
-    response = {"generated_text": "dummy text"}
+    prompt = generate_prompt(config, topic, text_type, text_length_str)
+    backend = load_backend(config)
+    text = backend.generate(prompt)
+
+    response = {"generated_text": text}
     return jsonify(response)
