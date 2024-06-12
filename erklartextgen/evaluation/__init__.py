@@ -1,6 +1,7 @@
 from . import pipeline
 from .linguistic import indicators as linguistic_indicators
 from .cefr import efllex as efllex
+from .cefr import cefr_j as cefr_j
 from . import safety
 from . import readability
 
@@ -18,9 +19,12 @@ def evaluate(text):
             "indicators_structural_complexty": indicators_structural_complexity,
             "indicators_ambiguity": indicators_ambiguity,
         },
-        "cefr": {"efflex": efllex.analyze_first_observation(doc)},
+        "cefr": {
+            "cefr_j": cefr_j.predict(doc),
+            "efflex": efllex.analyze_first_observation(doc),
+        },
         "safety": {
-            "detoxfy": safety.analyze(text),
+            "detoxify": safety.analyze(text),
         },
         "readability": {
             "flesch": readability.compute_flesch_reading_ease(doc),

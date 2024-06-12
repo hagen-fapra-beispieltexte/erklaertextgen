@@ -21,6 +21,12 @@ cd frontend
 yarn install
 ```
 
+Obtain all third-party data and place them in the folder `assets`. `ls assets` should show these files:
+```
+cefrj-vocabulary-profile-1.5.csv
+EFLLex_NLP4J.tsv
+```
+
 ## Development
 
 Start the backend:

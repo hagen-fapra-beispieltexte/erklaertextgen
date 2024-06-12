@@ -16,8 +16,10 @@ def _count_syllables(word):
     return count
 
 
-# Flesch Reading Ease Score
 def compute_flesch_reading_ease(doc):
+    """
+    Flesch Reading Ease Score
+    """
     words = [token.text for token in doc if token.is_alpha]
     sentences = list(doc.sents)
     syllables = sum(_count_syllables(word) for word in words)
@@ -34,8 +36,10 @@ def compute_flesch_reading_ease(doc):
     return score
 
 
-# Flesch-Kincaid readability formula
 def compute_flesch_kincaid_level(doc):
+    """
+    Flesch-Kincaid readability formula
+    """
     words = [token.text for token in doc if token.is_alpha]
     sentences = list(doc.sents)
     syllables = sum(_count_syllables(word) for word in words)
@@ -48,8 +52,10 @@ def compute_flesch_kincaid_level(doc):
     return score
 
 
-# the Smog Index - readability metric
 def compute_smog_index(doc):
+    """
+    Smog index
+    """
     sentences = list(doc.sents)
     words = [word.text for word in doc if word.is_alpha]
 
@@ -60,8 +66,10 @@ def compute_smog_index(doc):
     return smog_score
 
 
-# the Gunning FOG Index - readability metric
 def compute_gunning_fog_index(doc):
+    """
+    Gunning FOG index
+    """
     sentences = list(doc.sents)
     words = [word.text for word in doc if word.is_alpha]
 
@@ -76,8 +84,11 @@ def compute_gunning_fog_index(doc):
     return gunning_fog_index
 
 
-# the automated readability index (ARI)
 def compute_ari(doc):
+    """
+    Automated Readability Index (ARI)
+    """
+
     sentences = list(doc.sents)
     words = [word.text for word in doc if word.is_alpha]
 
@@ -91,8 +102,11 @@ def compute_ari(doc):
     return round(ari_score)
 
 
-# the coleman-liau index
 def compute_coleman_liau(doc):
+    """
+    Coleman-Liau index
+    """
+
     sentences = list(doc.sents)
     words = [word.text for word in doc if word.is_alpha]
 

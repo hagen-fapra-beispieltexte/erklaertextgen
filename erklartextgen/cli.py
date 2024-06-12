@@ -2,6 +2,7 @@ import sys
 
 from . import evaluation
 
+
 def run_eval():
     print(evaluation.evaluate(sys.argv[1]))
 
