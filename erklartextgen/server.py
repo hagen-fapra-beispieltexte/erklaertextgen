@@ -1,11 +1,13 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from .config import read_config
 from .prompting import *
 from .backend import load_backend
 
 app = Flask(__name__)
-config = read_config()
+CORS(app)
 
+config = read_config()
 
 @app.route("/generate_text", methods=["POST"])
 def generate_text():
