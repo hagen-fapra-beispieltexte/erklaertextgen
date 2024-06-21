@@ -25,61 +25,66 @@ export default {
 }
 </script>
 
-<style>
-.outer-container {
-  display: flex;
-  color: #303f9f;
-  justify-content: center; /* Zentriert den Container horizontal */
-  align-items: center; /* Zentriert den Container vertikal */
-  height: 100vh; /* Macht den outer-container so hoch wie das Viewport */
-  background-color: #f0f0f0; /* Hintergrundfarbe des outer-container */
+<style scoped>
+/* Der Container passt sich dynamisch an die Breite an, mit einer maximalen Breite von 1600px und einem festen Seitenverhältnis von 2:1 */
+.container {
+  position: absolute; /* Absolut positioniert relativ zum Viewport */
+  top: 50%; /* Vertikal zentriert */
+  left: 50%; /* Horizontal zentriert */
+  transform: translate(-50%, -50%); /* Verschiebt um die Hälfte der eigenen Größe, um exakte Zentrierung zu erreichen */
+  width: 80vw; /* 80% der Fensterbreite */
+  max-width: 1600px; /* Maximale Breite 1600px */
+  height: auto; /* Höhe wird durch Seitenverhältnis bestimmt */
+  aspect-ratio: 2 / 1; /* Seitenverhältnis 2:1 */
+  padding: 2.5vw; /* Padding relativ zur Fensterbreite */
+  font-family: Arial, sans-serif; /* Schriftart */
+  box-shadow: 0 0 1vw rgba(0, 0, 0, 0.1); /* Schatten relativ zur Fensterbreite */
+  background-color: white; /* Hintergrundfarbe */
+  border-radius: 1vw; /* Radius der Ecken relativ zur Fensterbreite */
+  display: flex; /* Flexbox-Modell */
+  flex-direction: column; /* Anordnung der Kinder in Spalte */
+  justify-content: space-between; /* Verteilung der Kinder */
 }
 
-.container {
-  padding: 20px;
-  font-family: Arial, sans-serif;
-  width: 800px;  /* Feste Breite */
-  height: 400px; /* Feste Höhe */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ein wenig Schatten für ein besseres visuelles Ergebnis */
-  background-color: white; /* Hintergrundfarbe des Containers */
-  border-radius: 10px; /* Abrundung der Ecken */
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
 .title {
-  font-size: 16pt;
-  text-align: center;
-  margin-bottom: 20px;
-  color: #303f9f;
+  font-size: 2vw; /* Schriftgröße 2% der Fensterbreite */
+  text-align: center; /* Textzentrierung */
+  margin-bottom: 2vw; /* Margin unten 2% der Fensterbreite */
+  color: #303f9f; /* Schriftfarbe */
 }
+
 .output-container, .loading-container {
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  padding: 20px;
-  background-color: #f9f9f9;
+  border: 0.25vw solid #ccc; /* Rahmen relativ zur Fensterbreite */
+  border-radius: 1vw; /* Radius der Ecken relativ zur Fensterbreite */
+  padding: 2.5vw; /* Padding relativ zur Fensterbreite */
+  background-color: #f9f9f9; /* Hintergrundfarbe */
   flex: 1; /* Flex-Wachstum, damit die Container den verfügbaren Platz nutzen */
-  display: flex;
-  flex-direction: column;
-  color: #29b6f6; /* Text über der Ausgabe */
+  display: flex; /* Flexbox-Modell */
+  flex-direction: column; /* Anordnung in Spalte */
+  color: #29b6f6; /* Textfarbe */
   justify-content: center; /* Zentriert den Inhalt vertikal */
   align-items: center; /* Zentriert den Inhalt horizontal */
+  font-size: 2vw; /* Schriftgröße 2% der Fensterbreite */
 }
+
 .output-text {
-  margin: 20px 0;
-  background-color: #81d4fa; /* Hintergrund der Ausgabe #303f9f */
-  padding: 20px;
-  color: #000000; /* Text der Ausgabe (Schrift) #ffffff */
-  border-radius: 10px;
+  margin: 2.5vw 0; /* Margin vertikal relativ zur Fensterbreite */
+  background-color: #81d4fa; /* Hintergrundfarbe */
+  padding: 2.5vw; /* Padding relativ zur Fensterbreite */
+  color: #000000; /* Textfarbe */
+  border-radius: 1vw; /* Radius der Ecken relativ zur Fensterbreite */
   width: 100%; /* Text nimmt die gesamte Breite des Containers ein */
   text-align: center; /* Text wird zentriert angezeigt */
+  font-size: 2vw; /* Schriftgröße 2% der Fensterbreite */
 }
+
 .back-button {
-  color: #ffffff; /* Text des Buttons (Schrift) */
-  background-color: #0288d1; /* Hintergrundfarbe des Buttons */
-  border: none;
-  border-radius: 10px;
-  padding: 10px 20px;
-  cursor: pointer;
+  color: #ffffff; /* Schriftfarbe */
+  background-color: #0288d1; /* Hintergrundfarbe */
+  border: none; /* Kein Rahmen */
+  border-radius: 1vw; /* Radius der Ecken relativ zur Fensterbreite */
+  padding: 1vw 2vw; /* Padding vertikal 1vw, horizontal 2vw */
+  cursor: pointer; /* Cursor wird Zeiger */
+  font-size: 2vw; /* Schriftgröße 2% der Fensterbreite */
 }
 </style>
