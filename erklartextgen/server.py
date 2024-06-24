@@ -9,6 +9,7 @@ CORS(app)
 
 config = read_config()
 
+
 @app.route("/generate_text", methods=["POST"])
 def generate_text():
     data = request.json

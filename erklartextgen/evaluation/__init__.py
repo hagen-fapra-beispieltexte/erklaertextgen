@@ -1,5 +1,6 @@
 from . import pipeline
 from .linguistic import indicators as linguistic_indicators
+from .linguistic import forms as forms
 from .cefr import efllex as efllex
 from .cefr import cefr_j as cefr_j
 from . import safety
@@ -18,6 +19,7 @@ def evaluate(text):
         "linguistic": {
             "indicators_structural_complexty": indicators_structural_complexity,
             "indicators_ambiguity": indicators_ambiguity,
+            "advanced_ratio": forms.compute_ratio(doc),
         },
         "cefr": {
             "cefr_j": cefr_j.predict(doc),
