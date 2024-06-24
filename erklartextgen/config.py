@@ -1,6 +1,6 @@
 import toml
 
-CONFIG_PATH = "./config.toml"
+CONFIG_PATH = "./config/config.toml"
 
 
 def read_config():

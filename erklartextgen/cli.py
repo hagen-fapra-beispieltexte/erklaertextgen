@@ -7,7 +7,8 @@ from .backend import load_backend
 
 
 def run_eval():
-    print(evaluation.evaluate(sys.argv[1]))
+    config = read_config()
+    print(evaluation.evaluate(sys.argv[1], config))
 
 
 def run_generate():

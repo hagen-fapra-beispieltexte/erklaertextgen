@@ -5,11 +5,15 @@ from .cefr import efllex as efllex
 from .cefr import cefr_j as cefr_j
 from . import safety
 from . import readability
+from . import stylistic
 
 
-def evaluate(text):
+def evaluate(text, config):
     doc = pipeline.process(text)
 
+    stylistic_evaluator = stylistic.GPT4StyleEvaluator(
+        config["evaluation"]["openai_api_key"]
+    )
     indicators_structural_complexity = (
         linguistic_indicators.compute_structural_complexity_indicators(doc)
     )
@@ -36,6 +40,7 @@ def evaluate(text):
             "ari": readability.compute_ari(doc),
             "coleman_liau": readability.compute_coleman_liau(doc),
         },
+        "stylistic": stylistic_evaluator.evaluate(text),
     }
 
     return out
