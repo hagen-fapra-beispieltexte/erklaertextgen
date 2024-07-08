@@ -1,46 +1,49 @@
 from . import pipeline
-from .linguistic import indicators as linguistic_indicators
-from .linguistic import forms as forms
-from .cefr import efllex as efllex
-from .cefr import cefr_j as cefr_j
-from . import safety
-from . import readability
-from . import stylistic
+
+import erklartextgen.evaluation.cefr.evaluation as cefr
+import erklartextgen.evaluation.linguistic.evaluation as linguistic
+import erklartextgen.evaluation.readability.evaluation as readability
+import erklartextgen.evaluation.safety.evaluation as safety
+import erklartextgen.evaluation.stylistic.evaluation as stylistic
 
 
-def evaluate(text, config):
-    doc = pipeline.process(text)
-
-    stylistic_evaluator = stylistic.GPT4StyleEvaluator(
-        config["evaluation"]["openai_api_key"]
-    )
-    indicators_structural_complexity = (
-        linguistic_indicators.compute_structural_complexity_indicators(doc)
-    )
-    indicators_ambiguity = linguistic_indicators.compute_ambiguity_indicators(doc)
-
-    out = {
-        "linguistic": {
-            "indicators_structural_complexty": indicators_structural_complexity,
-            "indicators_ambiguity": indicators_ambiguity,
-            "advanced_ratio": forms.compute_ratio(doc),
-        },
-        "cefr": {
-            "cefr_j": cefr_j.predict(doc),
-            "efflex": efllex.analyze_first_observation(doc),
-        },
-        "safety": {
-            "detoxify": safety.analyze(text),
-        },
-        "readability": {
-            "flesch": readability.compute_flesch_reading_ease(doc),
-            "flesch_kincaid": readability.compute_flesch_kincaid_level(doc),
-            "smog_index": readability.compute_smog_index(doc),
-            "gunning_fog": readability.compute_gunning_fog_index(doc),
-            "ari": readability.compute_ari(doc),
-            "coleman_liau": readability.compute_coleman_liau(doc),
-        },
-        "stylistic": stylistic_evaluator.evaluate(text),
+def load_deps(config):
+    return {
+        **cefr.load_dependencies(),
+        **safety.load_dependencies(),
+        **stylistic.load_dependencies(config),
     }
 
-    return out
+
+def evaluate(text, config, deps):
+    """
+    Evaluates the text and returns loss values for all categories
+
+    TODO: document loss values
+    """
+
+    scores = compute_scores(text, config, deps)
+
+    return {
+        "cefr": cefr.compute_loss(scores["cefr"]),
+        "linguistic": linguistic.compute_loss(scores["linguistic"]),
+        "readability": readability.compute_loss(scores["readability"]),
+        "safety": safety.compute_loss(scores["safety"]),
+        "stylistic": stylistic.compute_loss(scores["stylistic"]),
+    }
+
+
+def compute_scores(text, config, deps):
+    """
+    Returns scores in all categories for the text
+    """
+
+    doc = pipeline.process(text)
+
+    return {
+        "cefr": cefr.compute_scores(doc, text, deps),
+        "linguistic": linguistic.compute_scores(doc),
+        "readability": readability.compute_scores(doc),
+        "safety": safety.compute_scores(text, deps),
+        "stylistic": stylistic.compute_scores(text, deps),
+    }

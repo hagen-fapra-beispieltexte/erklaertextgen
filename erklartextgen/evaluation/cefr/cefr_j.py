@@ -1,7 +1,7 @@
 import csv
-from .. import readability
 
-CEFRJ_DATASET_PATH = "./assets/cefrj-vocabulary-profile-1.5.csv"
+from erklartextgen.evaluation.readability.metrics import compute_ari
+
 CEFRJ_DIFFICULTY_MAPPING = {"A1": 1, "A2": 2, "B1": 3, "B2": 4}
 
 # Thresholds for mapping scores to CEFR-J levels
@@ -29,10 +29,10 @@ READING_LM_COEFFS = {
 }
 
 
-def load_wordlist():
+def load_wordlist(load_path):
     cefr_dictionary = {}
 
-    with open(CEFRJ_DATASET_PATH, mode="r", encoding="utf-8") as csvfile:
+    with open(load_path, mode="r", encoding="utf-8") as csvfile:
         csv_reader = csv.DictReader(csvfile)
 
         for row in csv_reader:
@@ -90,11 +90,11 @@ def compute_bpera(doc, wordlist):
     return b_level_words / a_level_words if a_level_words > 0 else 0
 
 
-def predict(doc):
-    wordlist = load_wordlist()
+def predict(doc, deps):
+    wordlist = deps["cefrj_wordlist"]
 
     raw_features = {
-        "ari": readability.compute_ari(doc),
+        "ari": compute_ari(doc),
         "vpersent": compute_vpersent(doc),
         "avrdiff": compute_avrdiff(doc, wordlist, CEFRJ_DIFFICULTY_MAPPING),
         "bpera": compute_bpera(doc, wordlist),

@@ -1,7 +1,7 @@
 import spacy
 
-nlp = spacy.load("en_core_web_sm")
+NLP_MODEL = spacy.load("en_core_web_sm")
 
 
 def process(text):
-    return nlp(text)
+    return NLP_MODEL(text)

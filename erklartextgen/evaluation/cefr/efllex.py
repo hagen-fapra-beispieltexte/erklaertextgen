@@ -31,9 +31,9 @@ POS_NLP4J_MAP = {
 }
 
 
-def load_efllex():
+def load_dataset(load_path):
     dataset = {}
-    with open("assets/EFLLex_NLP4J.tsv", newline="") as csvfile:
+    with open(load_path, newline="") as csvfile:
         reader = csv.DictReader(csvfile, delimiter="\t")
         for row in reader:
             dataset[(row["word"], row["tag"])] = {
@@ -43,8 +43,8 @@ def load_efllex():
     return dataset
 
 
-def analyze_first_observation(doc):
-    efllex = load_efllex()
+def analyze_first_observation(doc, deps):
+    efllex = deps["efllex_dataset"]
 
     first_observations = []
     for token in doc:
