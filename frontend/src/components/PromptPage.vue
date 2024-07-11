@@ -30,10 +30,18 @@
       </div>
       <div class="form-row">
         <div class="label-cell">
-          <div class="label">{{ textType === 'Geschichte' ? 'Thema der Geschichte?' : 'Was soll erklärt werden?' }}</div>
+          <div class="label">{{ textType === '' ? 'Wähle Erklärtext, oder Geschichte aus!' : (textType === 'Geschichte' ? 'Titel einer Geschichte eingeben!' : 'Formuliere deine Frage!') }}</div>
         </div>
         <div class="input-cell">
-          <input type="text" v-model="prompt" @keyup.enter="submitPrompt" placeholder="Beschreibe deinen Textwunsch" class="input-field" />
+          <input 
+            type="text" 
+            v-model="prompt" 
+            @keyup.enter="submitPrompt" 
+            :disabled="textType === ''"
+            :placeholder="textType === '' ? 'Wähle Erklärtext, oder Geschichte aus!' : (textType === 'Geschichte' ? 'Titel einer Geschichte eingeben!' : 'Formuliere deine Frage!')" 
+            :class="{'disabled': textType === ''}"
+            class="input-field" 
+          />
         </div>
       </div>
       <div class="form-row">
@@ -49,13 +57,14 @@
 
 <script>
 export default {
+  props: ['initialPrompt', 'initialLength', 'initialTextType'],
   data() {
     return {
-      length: 0,
-      textType: '',
-      prompt: '',
+      length: this.initialLength || 0,
+      textType: this.initialTextType || '',
+      prompt: this.initialPrompt || '',
       errorMessage: ''
-    }
+    };
   },
   methods: {
     setLength(value) {
@@ -104,7 +113,6 @@ export default {
 }
 </script>
 
-
 <style scoped>
 /* Dynamischer Container, der sich an die Fenstergröße anpasst */
 .container {
@@ -112,7 +120,7 @@ export default {
   top: 50%; /* Vertikal zentriert */
   left: 50%; /* Horizontal zentriert */
   transform: translate(-50%, -50%); /* Verschiebt um die Hälfte der eigenen Größe, um exakte Zentrierung zu erreichen */
-  width: 80vw; /* 80% der Fensterbreite */
+  width: 100vw; /* % der Fensterbreite */
   max-width: 1600px; /* Maximale Breite 1600px */
   height: auto; /* Höhe wird durch Seitenverhältnis bestimmt */
   aspect-ratio: 2 / 1; /* Seitenverhältnis 2:1 */
@@ -122,28 +130,28 @@ export default {
   background-color: white; /* Hintergrundfarbe */
   border-radius: 1vw; /* Radius der Ecken relativ zur Fensterbreite */
   display: flex; /* Flexbox-Modell */
-  flex-direction: column; /* Anordnung der Kinder in Spalte */
-  justify-content: space-between; /* Verteilung der Kinder */
+  flex-direction: column;
+  justify-content: space-between;
   margin: auto; /* Zentriert den Container horizontal */
 }
 
 .title {
-  font-size: 2vw; /* Schriftgröße 2% der Fensterbreite */
-  text-align: center; /* Textzentrierung */
-  margin-bottom: 2vw; /* Margin unten 2% der Fensterbreite */
-  color: #303f9f; /* Schriftfarbe */
+  font-size: 3vw; 
+  text-align: center; 
+  margin-bottom: 2vw; 
+  color: #303f9f; /* Schriftfarbe Überschrift */
 }
 
 .form-container {
-  display: flex; /* Flexbox-Modell */
-  flex-direction: column; /* Anordnung in Spalte */
-  align-items: center; /* Zentrierung der Kinder */
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
   width: 100%; /* Breite 100% */
 }
 
 .form-row {
-  display: flex; /* Flexbox-Modell */
-  flex-direction: row; /* Anordnung in Zeile */
+  display: flex; 
+  flex-direction: row; 
   width: 100%; /* Breite 100% */
   margin-bottom: 2vw; /* Margin unten 2% der Fensterbreite */
 }
@@ -153,15 +161,15 @@ export default {
 }
 
 .label-cell {
-  display: flex; /* Flexbox-Modell */
+  display: flex; 
   justify-content: flex-end; /* Inhalt rechtsbündig */
   align-items: center; /* Inhalt zentriert */
-  padding: 0; /* Stellen Sie sicher, dass kein zusätzliches Padding vorhanden ist */
-  margin: 0; /* Stellen Sie sicher, dass kein zusätzliches Margin vorhanden ist */
+  padding: 0; 
+  margin: 0; 
 }
 
 .input-cell {
-  display: flex; /* Flexbox-Modell */
+  display: flex; 
   justify-content: center; /* Inhalt zentriert */
   align-items: center; /* Inhalt zentriert */
 }
@@ -170,22 +178,21 @@ export default {
   background-color: #303f9f; /* Hintergrundfarbe */
   color: white; /* Schriftfarbe */
   border-radius: 1vw; /* Radius der Ecken relativ zur Fensterbreite */
-  padding: 1vw; /* Überprüfen Sie das Padding */
-  text-align: center; /* Textzentrierung */
+  padding: 1vw; 
+  text-align: center; 
   width: 100%; /* Breite der dunkelblauen Anweisungstexte */
   font-size: 2vw; /* Schriftgröße 2% der Fensterbreite */
 }
 
-/* Überprüfen Sie, ob das Slider-Container-Element unnötigen Platz aufnimmt */
 .slider-container {
-  display: flex; /* Flexbox-Modell */
-  flex-direction: column; /* Anordnung in Spalte */
-  align-items: center; /* Zentrierung der Kinder */
-  width: 100%; /* Breite 100% */
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  width: 100%; 
 }
 
 .slider {
-  width: 100%; /* Breite 100% */
+  width: 98%; 
   margin-bottom: 1vw; /* Margin unten 1% der Fensterbreite */
   -webkit-appearance: none; /* Entfernt Standardstil in Webkit */
   height: 1vw; /* Höhe 1% der Fensterbreite */
@@ -220,13 +227,13 @@ export default {
 }
 
 .slider-buttons {
-  display: flex; /* Flexbox-Modell */
-  justify-content: space-between; /* Verteilung der Kinder */
-  width: 100%; /* Breite 100% */
+  display: flex; 
+  justify-content: space-between; 
+  width: 100%; 
 }
 
 .slider-buttons button {
-  background-color: #81d4fa; /* Hintergrundfarbe */
+  background-color: #b3e5fc; /* Hintergrundfarbe kurz button */
   border: none; /* Kein Rahmen */
   border-radius: 1vw; /* Radius der Ecken relativ zur Fensterbreite */
   padding: 1vw; /* Padding relativ zur Fensterbreite */
@@ -236,9 +243,17 @@ export default {
   font-size: 2vw; /* Schriftgröße 2% der Fensterbreite */
 }
 
+.slider-buttons button:nth-child(2) {
+  background-color: #4fc3f7; /* Hintergrundfarbe mittel button */
+}
+
+.slider-buttons button:nth-child(3) {
+  background-color: #03a9f4; /* Hintergrundfarbe lang button */
+}
+
 .slider-buttons button.selected {
-  background-color: #0288d1; /* Hintergrundfarbe */
-  color: white; /* Schriftfarbe */
+  background-color: #303f9f; /* Farbe für gedrückte Buttons am SLIDER */
+  color: white; /* Schriftfarbe gedrückte Buttons */
 }
 
 .text-type-buttons {
@@ -248,7 +263,7 @@ export default {
 }
 
 .text-type-buttons button {
-  background-color: #81d4fa; /* Hintergrundfarbe */
+  background-color: #b3e5fc; /* Hintergrundfarbe geschichte button */
   border: none; /* Kein Rahmen */
   border-radius: 1vw; /* Radius der Ecken relativ zur Fensterbreite */
   padding: 1vw; /* Padding relativ zur Fensterbreite */
@@ -258,8 +273,12 @@ export default {
   font-size: 2vw; /* Schriftgröße 2% der Fensterbreite */
 }
 
+.text-type-buttons button:nth-child(2) {
+  background-color: #4fc3f7; /* Hintergrundfarbe erklärtext button */
+}
+
 .text-type-buttons button.selected {
-  background-color: #0288d1; /* Hintergrundfarbe */
+  background-color: #303f9f; /* Farbe für gedrückte Buttons TEXTART */
   color: white; /* Schriftfarbe */
 }
 
@@ -278,11 +297,16 @@ button.selected {
 }
 
 .input-field {
-  width: 100%; /* Breite 100% */
+  width: 98%; /* Breite 100% */
   padding: 1vw; /* Padding relativ zur Fensterbreite */
   border: 0.25vw solid #ccc; /* Rahmen relativ zur Fensterbreite */
   border-radius: 1vw; /* Radius der Ecken relativ zur Fensterbreite */
   font-size: 2vw; /* Schriftgröße 2% der Fensterbreite */
+}
+
+.input-field.disabled {
+  background-color: #e0e0e0;
+  cursor: not-allowed;
 }
 
 .submit-button {
@@ -298,7 +322,7 @@ button.selected {
 }
 
 .full-width-button {
-  width: 100%; /* Breite 100% */
+  width: 98%; /* Breite 100% */
 }
 
 .error-message {
