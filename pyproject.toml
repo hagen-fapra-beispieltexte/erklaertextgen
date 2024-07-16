@@ -19,6 +19,7 @@ flask-cors = "^4.0.1"
 openai = "^1.35.3"
 scipy = "^1.14.0"
 jsonlines = "^4.0.0"
+datasets = "^2.20.0"
 
 [tool.poetry.scripts]
 server = "erklartextgen.cli:run_server"
@@ -26,9 +27,14 @@ eval = "erklartextgen.cli:run_eval"
 generate = "erklartextgen.cli:run_generate"
 generate_eval_set = "erklartextgen.cli:run_generate_eval_set"
 evaluate_eval_set = "erklartextgen.cli:run_evaluate_eval_set"
+generate_instruct_set = "erklartextgen.cli:run_generate_instruct_set"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.4.4"
+py-readability-metrics = "^1.4.5"
+joblib = "^1.4.2"
+matplotlib = "^3.9.1"
+pandas = "^2.2.2"
 
 [build-system]
 requires = ["poetry-core"]

@@ -3,7 +3,7 @@ from sklearn.metrics import root_mean_squared_error
 
 from erklartextgen.evaluation.cefr import cefr_j, efllex, bert_efcamdat
 
-BERT_EFCAMDAT_MODEL_PATH = "assets/model_20240620_204416_2"
+BERT_EFCAMDAT_MODEL_PATH = "assets/efcamdat_model_20240620_204416_2"
 EFLLEX_DATASET_PATH = "assets/EFLLex_NLP4J.tsv"
 CEFRJ_DATASET_PATH = "assets/cefrj-vocabulary-profile-1.5.csv"
 

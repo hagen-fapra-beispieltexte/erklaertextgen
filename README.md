@@ -21,11 +21,9 @@ cd frontend
 yarn install
 ```
 
-Obtain all third-party data and place them in the folder `assets`. `ls assets` should show these files:
-```
-cefrj-vocabulary-profile-1.5.csv
-EFLLex_NLP4J.tsv
-```
+Obtain the assets data and place them in the folder `assets`.
+
+Finally, copy the `config/config.toml.example` to `config/config.toml` and configure all values.
 
 ## Development
 

@@ -8,6 +8,7 @@ from . import evaluation
 from .config import read_config
 from .prompting import *
 from .backend import load_backend
+from .evaluation.pipeline import process
 
 
 def run_eval():
@@ -66,12 +67,14 @@ def run_generate_eval_set():
         print(job["id"])
         prompt = generate_prompt(config, job["topic"], job["type"], job["length"])
         backend_output = backend.generate(prompt)
+        print(backend_output)
 
         output = job.copy()
         output["prompt"] = prompt
         output["output"] = backend_output["response"]
         output["backend_duration"] = backend_output["eval_duration"]
 
+        print(output)
         outputs.append(output)
 
     with open("eval_set.json", "w") as f:
@@ -102,6 +105,29 @@ def run_evaluate_eval_set():
             eval_entry["eval"] = evaluation.evaluate(item["output"], config, eval_deps)
 
             writer.write(eval_entry)
+
+
+def run_generate_instruct_set():
+    dataset_path = sys.argv[1]
+
+    config = read_config()
+
+    with jsonlines.open(dataset_path) as reader:
+        for obj in reader:
+            text = obj["text"]
+            topic = obj["title"]
+            text_len = len(process(text))
+
+            prompt = config["prompting"]["explanation_prompt"].format(
+                **{"topic": topic, "length": text_len}
+            )
+
+            out_obj = {"input": prompt, "response": text}
+
+            with jsonlines.open(
+                "simplewiki_finetune_dataset.jsonl", mode="a"
+            ) as writer:
+                writer.write(out_obj)
 
 
 def main():

@@ -7,4 +7,4 @@ class Ollama:
         self.model = config["model"]
 
     def generate(self, prompt):
-        return self.client.generate(model=self.model, prompt=prompt)
+        return self.client.generate(model=self.model, prompt=prompt)["response"]

@@ -14,7 +14,7 @@ config = read_config()
 def generate_text():
     data = request.json
     length = data.get("length")
-    text_type = data.get("text_type")
+    text_type = data.get("textType")
     topic = data.get("prompt")
 
     if text_type == "Geschichte":
