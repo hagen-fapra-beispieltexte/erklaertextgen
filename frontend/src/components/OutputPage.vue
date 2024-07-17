@@ -3,7 +3,7 @@
     <div class="container">
       <h1 class="title">KLUG - Kinder-Lerntext und Unterrichtstext Generator</h1>
       <div class="instructions">
-        Klicke auf unbekannte Wörter, dann werden Wörter mit der selben Bedeutung angezeigt!
+          
       </div>
       <div class="output-container" v-if="!loading">
         <div class="output-text" @click.stop="showSynonym($event)">

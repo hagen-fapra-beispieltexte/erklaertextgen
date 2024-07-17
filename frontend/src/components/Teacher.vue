@@ -87,6 +87,7 @@
   </div>
 </template>
 
+
 <script>
 import { VueMarkdownIt } from 'vue3-markdown-it';
 
@@ -102,7 +103,8 @@ export default {
       prompt: '',
       generatedText: '',
       editableText: '',
-      synonymList: []
+      synonymList: [],
+      isTeacherRequest: true // Variable, die angibt, dass es sich um eine Lehrer-Anfrage handelt
     };
   },
   methods: {
@@ -114,7 +116,12 @@ export default {
     },
     submitPrompt() {
       if (this.textType && this.prompt && this.maxTokens > 0) {
-        const promptData = { length: this.maxTokens, textType: this.textType, prompt: this.prompt };
+        const promptData = { 
+          length: this.maxTokens, 
+          textType: this.textType, 
+          prompt: this.prompt,
+          isTeacherRequest: this.isTeacherRequest // Variable wird mitgesendet
+        };
         fetch('http://localhost:5000/generate_text', {
           method: 'POST',
           headers: {
@@ -164,6 +171,7 @@ export default {
   }
 }
 </script>
+
 
 <style scoped>
 body, html {
@@ -348,7 +356,7 @@ body, html {
 
 .editable-output {
   width: 100%;
-  height: 20vh;
+  height: 60vh;
   margin-top: 2vw;
   padding: 1vw;
   border: 0.25vw solid #ccc;
