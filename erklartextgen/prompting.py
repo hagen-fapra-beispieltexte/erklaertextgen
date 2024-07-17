@@ -25,8 +25,7 @@ def suggest_genre(model_identifier, topic):
     return genres[best_genre_idx]
 
 
-def generate_prompt(config, topic, text_type, text_length):
-    text_wordlen = config["lengths"][text_length]
+def generate_prompt(config, topic, text_type, text_wordlen):
     params = {"topic": topic, "length": text_wordlen}
 
     if text_type == "explanation":
