@@ -1,18 +1,14 @@
 <template>
-  <div class="outer-container" @click="hideSynonyms">
+  <div class="outer-container">
     <div class="container">
       <h1 class="title">KLUG - Kinder-Lerntext und Unterrichtstext Generator</h1>
       <div class="instructions">
           
       </div>
       <div class="output-container" v-if="!loading">
-        <div class="output-text" @click.stop="showSynonym($event)">
+        <div class="output-text">
           <h2 class="result-title">{{ textType === 'Geschichte' ? 'Deine Geschichte über ' : 'Dein Erklärtext über ' }} "{{ prompt }}":</h2>
           <div v-html="highlightedText"></div>
-        </div>
-        <div class="synonym-box" v-if="synonyms" :style="{ top: synonymBoxPosition.top, left: synonymBoxPosition.left }">
-          <p class="synonym-word">{{ currentWord }}:</p>
-          <p class="synonym-item">{{ synonyms.join(', ') }}</p>
         </div>
         <div class="button-container">
           <button @click="retry" class="retry-button">Erneut versuchen</button>
@@ -36,6 +32,7 @@
     </div>
   </div>
 </template>
+
 
 <script>
 export default {
@@ -71,25 +68,6 @@ export default {
       a.download = 'text.txt';
       a.click();
       URL.revokeObjectURL(url);
-    },
-    showSynonym(event) {
-      if (event.target.classList.contains('highlight-word')) {
-        const word = event.target.innerText;
-        fetch(`http://127.0.0.1:5000/get_synonyms?word=${word}`)
-          .then(response => response.json())
-          .then(data => {
-            this.synonyms = data.synonyms;
-            this.currentWord = word;
-            this.synonymBoxPosition = { top: `${event.clientY + 10}px`, left: `${event.clientX + 10}px` };
-            this.synonymList.push({ word: this.currentWord, synonyms: this.synonyms });
-            this.synonyms = null;
-            this.currentWord = '';
-          });
-      }
-    },
-    hideSynonyms() {
-      this.synonyms = null;
-      this.currentWord = '';
     }
   }
 }
