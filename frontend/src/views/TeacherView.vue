@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import Teacher from '../components/Teacher.vue'
+import Teacher from '../components/TeacherComponent.vue'
 
 export default {
   components: {

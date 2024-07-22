@@ -2,9 +2,7 @@
   <div class="outer-container">
     <div class="container">
       <h1 class="title">KLUG - Kinder-Lerntext und Unterrichtstext Generator</h1>
-      <div class="instructions">
-          
-      </div>
+      <div class="instructions"></div>
       <div class="output-container" v-if="!loading">
         <div class="output-text">
           <h2 class="result-title">{{ textType === 'Geschichte' ? 'Deine Geschichte über ' : 'Dein Erklärtext über ' }} "{{ prompt }}":</h2>
@@ -33,15 +31,11 @@
   </div>
 </template>
 
-
 <script>
 export default {
   props: ['generatedText', 'loading', 'initialPrompt', 'initialLength', 'initialTextType'],
   data() {
     return {
-      synonyms: null,
-      currentWord: '',
-      synonymBoxPosition: { top: '0px', left: '0px' },
       synonymList: [],
       prompt: this.initialPrompt,
       textType: this.initialTextType
@@ -194,17 +188,6 @@ body, html {
 
 .retry-button.selected, .download-button.selected {
   background-color: #b3e5fc;
-}
-
-.synonym-box {
-  position: absolute;
-  background-color: #ffffff;
-  color: #000000;
-  border: 1px solid #000000;
-  padding: 1vw;
-  border-radius: 1vw;
-  box-shadow: 0 0 1vw rgba(0, 0, 0, 0.1);
-  z-index: 10;
 }
 
 .synonym-list {
