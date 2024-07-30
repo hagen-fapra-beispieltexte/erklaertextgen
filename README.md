@@ -1,6 +1,6 @@
 # erklärtextgen
 
-This repository contains the code and associated artifatcs of the project "Beispieltexte", which was carried out as part of the /Fachpraktikum Sprachtechnologie/ in the summer semester 2024 at the University of Hagen.
+This repository contains the code and associated artifacts of the project "Beispieltexte", which was carried out as part of the *Fachpraktikum Sprachtechnologie* in the summer semester 2024 at the University of Hagen.
 
 The goal of this application is to enable both students and teachers to generate child-suitable and readable texts that approximately conform to the CEFR level A2. Two types of texts can be requested: Explanation texts or stories.
 
