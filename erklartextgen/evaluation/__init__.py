@@ -16,11 +16,9 @@ def load_deps(config):
     }
 
 
-def evaluate(text, config, deps, target_len):
+def evaluate(text, config, deps, target_text_len):
     """
     Evaluates the text and returns loss values for all categories
-
-    TODO: document loss values
     """
 
     scores = compute_scores(text, config, deps)

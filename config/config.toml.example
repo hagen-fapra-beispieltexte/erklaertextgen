@@ -1,15 +1,18 @@
 [backend]
+# Select a LLM backend to use for text generation, can currently only be "ollama"
 active = "ollama"
 
 [backend.ollama]
-# Use this if you are going to use ollama locally
+# Base URL of your ollama server and model to be used
 base_url = "http://127.0.0.1:11434"
 model = "mistral"
 
 [backend.gpt4o]
+# OpenAI API key
 api_key = "42"
 
 [prompting]
+# Prompt for explanation texts
 explanation_prompt = """
 Schreibe eine einfache Erklärung über {topic} für A2-Englischlerner im Präsenz.
 Die Erklärung sollte {length} Wörter haben und leicht verständlich sein.
@@ -18,6 +21,7 @@ Erkläre es so, dass Kinder es verstehen, die Englisch seit einem Jahr als Fremd
 Gib Beispiele und wichtige Punkte an.
 Die Erklärung hat keinen Titel.
 """
+# Prompt for stories
 story_prompt = """
 Schreibe eine Kindergeschichte über das {topic} in folgendem Genre: {genre}
 Schreibe die Geschichte in sehr einfachem Englisch für Sprachlernende im zweiten Jahr.
@@ -29,12 +33,24 @@ Die Storyhat keinen Title.
 Die Geschichte sollte nicht mit 'Once' oder 'Once upon a time' beginnen.
 Überprüfe noch mal ob das Sprachniveau ein einfaches A2 ist. Wenn nicht, vereinfache den Text.
 """
+# Embedding model to use for determining story genres
 genre_embedding_model = "distiluse-base-multilingual-cased-v1"
 
 [lengths]
+# Definition of text lengths
 short = 100
 medium = 150
 long = 250
 
 [evaluation]
+# OpenAI API key used for stylistic evaluation
 openai_api_key = "<set api key here>"
+
+[oversampling]
+# Enable/disable oversampling and define how many texts should be generated
+enabled = true
+count = 2
+
+[postprocessing]
+# Enable/disable postprocessing of generated texts
+enabled = false

@@ -1,3 +1,8 @@
+"""
+Implements various readability metrics
+"""
+
+
 def _count_syllables(word):
     count = 0
     vowels = "aeiouy"
@@ -19,6 +24,8 @@ def _count_syllables(word):
 def compute_flesch_reading_ease(doc):
     """
     Flesch Reading Ease Score
+
+    Bibliography key: vstajner2012can
     """
     words = [token.text for token in doc if token.is_alpha]
     sentences = list(doc.sents)
@@ -39,6 +46,8 @@ def compute_flesch_reading_ease(doc):
 def compute_flesch_kincaid_level(doc):
     """
     Flesch-Kincaid readability formula
+
+    Bibliography key: vstajner2012can
     """
     words = [token.text for token in doc if token.is_alpha]
     sentences = list(doc.sents)
@@ -55,6 +64,8 @@ def compute_flesch_kincaid_level(doc):
 def compute_smog_index(doc):
     """
     Smog index
+
+    Bibliography key: vstajner2012can
     """
     sentences = list(doc.sents)
     words = [word.text for word in doc if word.is_alpha]
@@ -69,6 +80,8 @@ def compute_smog_index(doc):
 def compute_gunning_fog_index(doc):
     """
     Gunning FOG index
+
+    Bibliography key: vstajner2012can
     """
     sentences = list(doc.sents)
     words = [word.text for word in doc if word.is_alpha]
@@ -87,6 +100,8 @@ def compute_gunning_fog_index(doc):
 def compute_ari(doc):
     """
     Automated Readability Index (ARI)
+
+    Bibliography key: senter1967automated, smith1967automated
     """
 
     sentences = list(doc.sents)
@@ -105,6 +120,8 @@ def compute_ari(doc):
 def compute_coleman_liau(doc):
     """
     Coleman-Liau index
+
+    Bibliography key: coleman1975computer
     """
 
     sentences = list(doc.sents)

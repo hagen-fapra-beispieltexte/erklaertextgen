@@ -1,48 +1,63 @@
 # erklärtextgen
 
+This repository contains the code and associated artifatcs of the project "Beispieltexte", which was carried out as part of the /Fachpraktikum Sprachtechnologie/ in the summer semester 2024 at the University of Hagen.
+
+The goal of this application is to enable both students and teachers to generate child-suitable and readable texts that approximately conform to the CEFR level A2. Two types of texts can be requested: Explanation texts or stories.
+
+Below you can find the instructions for setting up and running the project. For more information please see the wiki of this repository.
+
 ## Installation
 
-Make sure you have `poetry` and `yarn` installed, then install the project dependencies:
+Make sure you have [poetry](https://python-poetry.org/) and [yarn](https://classic.yarnpkg.com/en/) installed. You can obtain them via the package manager of your system. Clone this repository and install the project dependencies:
 
 ```
+git clone [github-url]
+cd erklartextgen
 poetry install
 ```
 
-Download the spacy model and the Open English WordNet.
+Execute the following to download the dependencies used for NLP processing:
 
 ```
 poetry run python -m spacy download en_core_web_sm
 poetry run python -m wn download oewn:2023
 ```
 
-Install frontend dependencies:
+Obtain trained model files and auxiliary assets [here](https://drive.google.com/file/d/15KZWG-nOZ8F2VSKxWS4ESaIBow3lQliB/view?usp=sharing). Untar the archive and make sure that the folder `assets` is placed in your project directory.
+
+```
+tar -xvf assets.tar.gz
+```
+
+Install the frontend dependencies:
+
 ```
 cd frontend
 yarn install
 ```
 
-Obtain the assets data and place them in the folder `assets`.
+Finally, copy the file `config/config.toml.example` to `config/config.toml` and configure all values. You are now ready to start using the application!
 
-Finally, copy the `config/config.toml.example` to `config/config.toml` and configure all values.
+## Usage
 
-## Development
-
-Start the backend:
+First, start the backend:
 
 ```
 poetry run flask --app erklartextgen.server run
 ```
 
-Start the frontend:
+Then, in a separate shell session, start the frontend:
 
 ```
+cd frontend
 yarn run dev
 ```
 
-You can get the raw evaluation metrics for a single sentence like this:
-```
-poetry run eval "This is a test sentence"
-```
+You can open the student view in your browser at http://localhost:5173 and the teacher view at http://localhost:5173/teacher.
+
+## Development
+
+Please see the further documentation in the wiki. While this project is not actively maintained, you might want to lint and format any changes you make using [ruff](https://docs.astral.sh/ruff/):
 
 Please lint and format your code:
 ```
@@ -50,64 +65,12 @@ poetry run ruff lint
 poetry run ruff format
 ```
 
-## Usage
-**Text Generation**
+Furthermore, two CLI utilities are provided for generating texts or printing raw evaluation scores, which might be useful for development:
 
-To generate text, use the `generate` function from the `generation.py` script. This function uses a specified backend and configuration to produce text based on a given topic.
-
-**Example:**
-```python
-from generation import generate
-
-config = read_config()  # Load your configuration
-text = generate(config, deps, backend, "Technology", "explanation", 150)
-print(text)
 ```
-**Genre Suggestion**
+# Generates a medium-length explanation text about 'cars'
+poetry run generate "cars" 
 
-The `suggest_genre` function suggests a genre based on the provided topic using the `SentenceTransformer` model.
-
-**Example:**
-```python
-from prompts import suggest_genre
-
-genre = suggest_genre("distiluse-base-multilingual-cased-v1", "Space Exploration")
-print(genre)  # Output: "Abenteuer"
+# Prints the raw evaluation output for the given sentence
+poetry run eval "This is a complex test text" 
 ```
-
-**Prompt Generation**
-
-Generate prompts for different text types using the `generate_prompt` function. This function formats a prompt template with provided parameters such as topic, text type, and length.
-
-**Example:**
-```python
-from prompts import generate_prompt
-
-prompt = generate_prompt(config, "Space Exploration", "story", 200)
-print(prompt)
-```
-
-**Postprocessing**
-
-To shorten a text to the nearest sentence within a word limit, use: `shorten_to_nearest_sentence(text, max_length)`. The function will return the shortened text without cutting off mid-sentence.
-
-**Example:**
-```python
-text = "This is a complete sentence. This is another one."
-max_length = 6
-shortened_text = shorten_to_nearest_sentence(text, max_length)
-print(shortened_text)  # Output: "This is a complete sentence." 
-```
-
-**Configuration**
-
-Ensure your `config.toml` file is set up correctly. Key sections include:
-
-- `[backend]`: Defines the backend to use for text generation.
-- `[prompting]`: Contains prompt templates for different text types.
-- `[lengths]`: Predefined lengths for generated texts.
-- `[evaluation]`: API keys and settings for evaluating generated content.
-
-Make sure to configure your `config.toml` file with the appropriate settings for your environment and use case.
-
-

@@ -1,3 +1,7 @@
+"""
+Implements functionality for prompting and prompt templating
+"""
+
 from sentence_transformers import SentenceTransformer, util
 import numpy as np
 

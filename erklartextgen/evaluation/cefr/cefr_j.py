@@ -1,3 +1,9 @@
+"""
+Computes the CEFR-J level of a given text
+
+Bibliography key: uchida2018assigning
+"""
+
 import csv
 
 from erklartextgen.evaluation.readability.metrics import compute_ari

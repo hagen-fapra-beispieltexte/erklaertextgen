@@ -1,3 +1,9 @@
+"""
+Identifies advanced linguistic forms in the input text
+
+Bibliography key: chinkina2016linguistically
+"""
+
 from collections import Counter
 
 # Linguistic forms that were determined to be likely beyond A2

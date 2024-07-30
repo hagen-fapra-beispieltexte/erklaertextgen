@@ -1,3 +1,9 @@
+"""
+Computes indicators for structural complexity and ambiguity within a text
+
+Bibliography key: vstajner2012can
+"""
+
 from collections import Counter
 import wn
 

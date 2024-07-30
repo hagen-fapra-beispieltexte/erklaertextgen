@@ -1,3 +1,7 @@
+"""
+Computes the text length of the generated text
+"""
+
 from sklearn.metrics import root_mean_squared_error
 
 

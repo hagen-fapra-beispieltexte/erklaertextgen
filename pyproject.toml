@@ -2,7 +2,7 @@
 name = "erklartextgen"
 version = "0.1.0"
 description = ""
-authors = ["Niklas Kunz <niklas.kunz@studium.fernuni-hagen.de>"]
+authors = []
 readme = "README.md"
 
 [tool.poetry.dependencies]
@@ -25,9 +25,6 @@ datasets = "^2.20.0"
 server = "erklartextgen.cli:run_server"
 eval = "erklartextgen.cli:run_eval"
 generate = "erklartextgen.cli:run_generate"
-generate_eval_set = "erklartextgen.cli:run_generate_eval_set"
-evaluate_eval_set = "erklartextgen.cli:run_evaluate_eval_set"
-generate_instruct_set = "erklartextgen.cli:run_generate_instruct_set"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.4.4"

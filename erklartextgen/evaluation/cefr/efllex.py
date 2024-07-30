@@ -1,7 +1,14 @@
+"""
+Computes the CEFR level using the EFLLex dataset
+
+This implementation uses the same metholodogy as implemented
+on https://cental.uclouvain.be/cefrlex/efllex/analyse/.
+
+Bibliography key: durlich2018efllex
+"""
+
 import csv
 from collections import Counter
-
-# TODO: Add more comments/docs
 
 # Below you can find all NLP4J POS tags that appear in the EFLLex lexicon:
 # {

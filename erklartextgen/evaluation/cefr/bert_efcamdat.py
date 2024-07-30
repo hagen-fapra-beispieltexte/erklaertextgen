@@ -1,3 +1,11 @@
+"""
+Computes the CEFR level of an input text
+
+Uses a pre-trained classifier based on distilBERT that has been trained on the EFCAMDAT dataset.
+
+Bibliography key: geertzen2013automatic
+"""
+
 import torch
 import torch.nn as nn
 from transformers import AutoTokenizer, AutoModel

@@ -1,3 +1,7 @@
+"""
+Performs stylistic evaluation of a text using GPT4o
+"""
+
 import openai
 import json
 

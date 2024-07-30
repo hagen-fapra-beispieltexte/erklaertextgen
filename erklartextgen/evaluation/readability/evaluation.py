@@ -1,6 +1,6 @@
 from sklearn.metrics import root_mean_squared_error
 
-from erklartextgen.evaluation.readability.metrics import *
+from erklartextgen.evaluation.readability import metrics
 
 
 def compute_loss(scores):
@@ -25,10 +25,10 @@ def compute_loss(scores):
 
 def compute_scores(doc):
     return {
-        "flesch": compute_flesch_reading_ease(doc),
-        "flesch_kincaid": compute_flesch_kincaid_level(doc),
-        "smog_index": compute_smog_index(doc),
-        "gunning_fog": compute_gunning_fog_index(doc),
-        "ari": compute_ari(doc),
-        "coleman_liau": compute_coleman_liau(doc),
+        "flesch": metrics.compute_flesch_reading_ease(doc),
+        "flesch_kincaid": metrics.compute_flesch_kincaid_level(doc),
+        "smog_index": metrics.compute_smog_index(doc),
+        "gunning_fog": metrics.compute_gunning_fog_index(doc),
+        "ari": metrics.compute_ari(doc),
+        "coleman_liau": metrics.compute_coleman_liau(doc),
     }

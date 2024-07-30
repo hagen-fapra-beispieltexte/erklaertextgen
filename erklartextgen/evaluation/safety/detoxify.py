@@ -1,3 +1,9 @@
+"""
+Analyzes the text for toxicity
+
+Bibliography key: bhandari2023trustworthiness
+"""
+
 from detoxify import Detoxify
 
 
